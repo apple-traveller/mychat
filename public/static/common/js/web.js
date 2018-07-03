@@ -19,16 +19,6 @@
             doc.documentElement.appendChild(link); 
     }
 
-    //动态引入js
-    function dynamicLoadJs(url) {
-        var head = document.getElementsByTagName('head')[0];
-        var script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.src = url;
-        head.appendChild(script);
-    }
-
-
     var upload_img_url = "http://www.laychat.com/index/upload/uploadImg"; //发送图片接口
 
     //生成随机数
@@ -76,10 +66,10 @@
             });
 
             //发送消息
-            var repeat = 1;  // 限制执行次数为1次
+            var repeat = 1;  // 限制自动回复的次数为1次
             layim.on('sendMessage', function(res){
                 var To = res.to;
-                //演示自动回复
+                //自动回复
                 var time = setTimeout(function(){
                     if (repeat == 0){
                         clearInterval(time);
