@@ -1,13 +1,43 @@
+    window.onload=function(){
+        dynamicLoadCss("http://abc.maomin.xyz/layui/css/layui.css");
+    }
+
+
+    //动态引入css
+    function dynamicLoadCss(url){ 
+        var doc=document; 
+        var link=doc.createElement("link"); 
+        link.setAttribute("rel", "stylesheet"); 
+        link.setAttribute("type", "text/css"); 
+        link.setAttribute("media", "all"); 
+        link.setAttribute("href", url); 
+       
+        var heads = doc.getElementsByTagName("head"); 
+        if(heads.length) 
+            heads[0].appendChild(link); 
+        else 
+            doc.documentElement.appendChild(link); 
+    }
+
+    //动态引入js
+    function dynamicLoadJs(url) {
+        var head = document.getElementsByTagName('head')[0];
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = url;
+        head.appendChild(script);
+    }
+
 
     var upload_img_url = "http://www.laychat.com/index/upload/uploadImg"; //发送图片接口
-    //var uid = parseInt(Math.random() * 40) + 1;
+
     //生成随机数
     function RndNum(n){
         var rnd="";
         for(var i=0;i<n;i++)
         rnd+=Math.floor(Math.random()*10);
         return rnd;
-    }
+    }   
     var uid = RndNum(10);
 
     layui.use('layim', function(layim){
@@ -32,6 +62,7 @@
 
             //开启客服模式
             ,brief: true
+            ,notice:true
         });
 
         $("#kf").click(function(){
@@ -39,12 +70,36 @@
             layim.chat({
                 name: $(this).attr('data-name') //名称
                 ,type: 'friend' //聊天类型
-                ,avatar: '/static/common/images/common.jpg'
+                ,avatar: 'http://tva1.sinaimg.cn/crop.219.144.555.555.180/0068iARejw8esk724mra6j30rs0rstap.jpg'
                 ,id: $(this).attr('data-id')
+                ,username:"在线客服"
             });
 
             //发送消息
+            var repeat = 1;  // 限制执行次数为1次
             layim.on('sendMessage', function(res){
+                var To = res.to;
+                //演示自动回复
+                var time = setTimeout(function(){
+                    if (repeat == 0){
+                        clearInterval(time);
+                    }else{
+                        repeat--;
+                        var obj = {};
+                        if(To.type === 'friend'){
+                          obj = {
+                            username: To.name
+                            ,avatar: To.avatar
+                            ,id: To.id
+                            ,type: To.type
+                            ,content: "你好，我是客服小妹，很高兴为你服务！"
+                          }
+                            layim.setChatStatus('<span style="color:#FF5722;">在线</span>');
+                        }
+                        layim.getMessage(obj);
+                    }
+                }, 1000);
+
                 console.log(res);
                 // 发送消息
                 var mine = JSON.stringify(res.mine);
@@ -69,6 +124,7 @@
             }));
 
             console.log("websocket握手成功!");
+
         };
 
         //监听收到的消息
