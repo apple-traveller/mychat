@@ -1,8 +1,5 @@
 <?php
-/**
- * author: NickBai
- * createTime: 2017/1/6 0006 下午 5:10
- */
+
 return [
 
     //默认显示的用户分组
