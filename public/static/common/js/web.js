@@ -11,7 +11,6 @@
         link.setAttribute("type", "text/css"); 
         link.setAttribute("media", "all"); 
         link.setAttribute("href", url); 
-       
         var heads = doc.getElementsByTagName("head"); 
         if(heads.length) 
             heads[0].appendChild(link); 
@@ -134,4 +133,5 @@
                     break;
             }
         };
+        
     });
