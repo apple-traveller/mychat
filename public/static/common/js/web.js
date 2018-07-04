@@ -54,7 +54,7 @@
             ,notice:true
         });
 
-        $("#kf").click(function(){
+        $("#zaixiankf").click(function(){
             // 打开一个客服面板
             layim.chat({
                 name: $(this).attr('data-name') //名称
@@ -133,5 +133,5 @@
                     break;
             }
         };
-        
+
     });

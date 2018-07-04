@@ -22,7 +22,7 @@ layui.use(['layim'], function(layim){
         ,chatLog: chatlog_url //聊天记录页面地址，若不开启，剔除该项即可
 
         ,title:"在线客服系统"
-        ,notice:true //是否开启桌面消息提醒，即在浏览器之外的提醒
+        ,notice: true //是否开启桌面消息提醒，默认false
         ,min:false //用于设定主面板是否在页面打开时，始终最小化展现
         ,isgroup:false //是否开启群组
         ,isfriend:true
@@ -72,7 +72,6 @@ layui.use(['layim'], function(layim){
 
     //layim建立就绪
     layim.on('ready', function(res){
-
         //发送消息
         layim.on('sendMessage', function(res){
             //console.log(res);
