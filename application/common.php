@@ -40,5 +40,12 @@ function readCtConfig()
     return unserialize($conf);
 }
 
+//将对象转换成数组
+function objToArr($obj)
+{
+    return json_decode(json_encode($obj), true)['data'];
+}
+
+
 
 

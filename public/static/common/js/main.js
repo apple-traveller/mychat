@@ -46,7 +46,6 @@ layui.use(['layim'], function(layim){
         switch(data['message_type']){
             // 服务端ping客户端
             case 'ping':
-                //console.log(data);
                 socket.send('{"type":"ping"}');
                 break;
             // 在线
@@ -57,14 +56,14 @@ layui.use(['layim'], function(layim){
             case 'offline':
                 layim.setFriendStatus(data.id, 'offline');
                 break;
-            // 用户退出 更新用户列表
-            case 'logout':
-                layim.setFriendStatus(data.id, 'offline');
-                break;
             // 监测聊天数据
             case 'chatMessage':
                 //console.log(data.data);
                 layim.getMessage(data.data);
+                break;
+            // 离线消息推送
+            case 'logMessage':
+                setTimeout(function(){layim.getMessage(data.data)}, 1000);
                 break;
         }
     };

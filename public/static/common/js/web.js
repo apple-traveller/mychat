@@ -17,6 +17,8 @@
         else 
             doc.documentElement.appendChild(link); 
     }
+	
+
 
     var upload_img_url = "http://www.laychat.com/index/upload/uploadImg"; //发送图片接口
 
@@ -27,6 +29,7 @@
         rnd+=Math.floor(Math.random()*10);
         return rnd;
     }   
+
     var uid = RndNum(10);
 
     layui.use('layim', function(layim){
@@ -53,7 +56,7 @@
             ,brief: true
             ,notice:true
         });
-
+        var repeat = 1;  // 限制自动回复的次数为1次
         $("#zaixiankf").click(function(){
             // 打开一个客服面板
             layim.chat({
@@ -65,7 +68,7 @@
             });
 
             //发送消息
-            var repeat = 1;  // 限制自动回复的次数为1次
+            
             layim.on('sendMessage', function(res){
                 var To = res.to;
                 //自动回复
@@ -81,7 +84,7 @@
                             ,avatar: To.avatar
                             ,id: To.id
                             ,type: To.type
-                            ,content: "你好，我是客服小妹，很高兴为你服务！"
+                            ,content: "您好！上海塑米信息科技有限公司专注于高压聚乙烯（LDPE）、线性高压聚乙烯（LLDPE）、低压聚乙烯（HDPE）、聚丙烯（PP-包括均聚物、嵌段共聚物、无规共聚物、透明聚丙烯、高结晶聚丙烯）、聚氯乙烯(PVC)、聚苯乙烯（PS）、 ABS等几十个牌号的塑料原料销售服务，为客户带来全新的采购体验"
                           }
                             layim.setChatStatus('<span style="color:#FF5722;">在线</span>');
                         }
@@ -103,7 +106,6 @@
         var socket = new WebSocket('ws://127.0.0.1:8283');
         //连接成功时触发
         socket.onopen = function(){
-
             socket.send(JSON.stringify({
                 type: 'init',
                 id: uid,
@@ -111,9 +113,7 @@
                 avatar: '//tp1.sinaimg.cn/5619439268/180/40030060651/1',
                 sign: '在深邃的编码世界，做一枚轻盈的纸飞机'
             }));
-
             console.log("websocket握手成功!");
-
         };
 
         //监听收到的消息
@@ -132,6 +132,5 @@
                     layim.getMessage(data.data);
                     break;
             }
-        };
-
-    });
+        }
+ });

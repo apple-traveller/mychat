@@ -18,7 +18,7 @@ class Chatlog extends Base
      //聊天记录详情
     public function detail()
     {
-        if(request()->isAjax()) {
+        if(request()->isAjax()){
 
             $perPage = config('log_page');
             $id = input('id');
@@ -26,7 +26,6 @@ class Chatlog extends Base
             $flag = input('flag');  //此处为标识是否获取总数
 
             $uid = session('l_user_id');
-
             $field = 'fromname username,fromid id,fromavatar avatar,timeline timestamp,content';
             if('friend' == $type) {
 
